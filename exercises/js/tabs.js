@@ -18,4 +18,3 @@ $modules.each(function() {
 
 
 $modules.first().show();
-$ul_element;
