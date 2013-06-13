@@ -1,5 +1,5 @@
 //2.1.1
-$("div .module")
+$("div.module")
 
 //2.1.2
 $("#myListItem").hide()
@@ -12,7 +12,7 @@ $("#myListItem").hide() is the best way.
 $('label[for="q"]')
 
 //2.1.4
-$(":hidden").length
+$("body :hidden").length
 
 //2.1.5
 $("img[alt]").length
