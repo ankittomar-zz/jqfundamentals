@@ -25,7 +25,7 @@ $("#fruits tbody tr:odd")
 
 //2.2.1
 
-$("img").each(function get_image_alt_attribute() {
+$("img").each(function() {
     console.log( 'alt attribute : ' + $(this).attr('alt'))   
 })
 
@@ -36,17 +36,15 @@ $('input[name="q"]').parent('form').addClass('eureka')
 
 //2.2.3
 
-element = $('#myList .current')
-element.removeClass('current')
-element.next().addClass('current')
+$('#myList .current').removeClass('current').next().addClass('current')
 
 //2.2.4
 
-$('#specials select').parent().next('li').children('input.input_submit')
+$('#specials select').parent().siblings(".buttons").children('input.input_submit')
 
 //2.2.5
 
-$('#slideshow li:first').addClass('current').siblings().addClass('disabled'
+$('#slideshow li:first').addClass('current').siblings().addClass('disabled')
 
 
 //2.3.1
