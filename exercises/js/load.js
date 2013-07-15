@@ -17,22 +17,27 @@ LoadExternalContent.prototype = {
     },
 
     appendDivElement: function(element) {
-        element.append('<div class="child_div"></div>');
+        $('<div class="child_div"></div>').insertAfter(element);
     },
 
     setReferenceInData: function() {
-        $.each(headline_elements, function(index, value) {
-            var headline_child_div = $(headline_elements[index]).children('div');
-            $(headline_elements[index]).data($(headline_child_div));
-        });  
+        new_div = $('div#blog div');
+        $.each(new_div, function(index,value){
+            $(new_div[index]).data("index", index+1);
+            $(headline_elements[index]).data("reference", new_div[index]);
+        })
     },
 
     loadContentInTargetDiv: function(element) {
-        //debugger;
-        $(element).children('div').load('/exercises/data/blog.html #post1', function () { 
-            alert('fuck off');
+        
+        var heading_sibling = $(element).next('div');
+        var heading_sibling_data = heading_sibling.data('index');
+        sr = 'data/blog.html #post' + heading_sibling_data;
+                
+         $(heading_sibling).load(sr, function () { 
+            console.log("fuck off");
+            
         });
-
     },
 
 
