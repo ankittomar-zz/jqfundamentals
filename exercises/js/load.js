@@ -33,11 +33,7 @@ LoadExternalContent.prototype = {
         var heading_sibling = $(element).next('div');
         var heading_sibling_data = heading_sibling.data('index');
         sr = 'data/blog.html #post' + heading_sibling_data;
-                
-         $(heading_sibling).load(sr, function () { 
-            console.log("fuck off");
-            
-        });
+        $(heading_sibling).load(sr);
     },
 
 
