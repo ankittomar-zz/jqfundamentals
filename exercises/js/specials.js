@@ -14,11 +14,11 @@ LoadSpecialContentFromJson.prototype = {
     insertHtmlElements: function() {
         $('<div id= "json_target"></div>').insertAfter('#specials form');
         target_div = $('div#json_target');
-        target_div.append('<h2/>', '<p/>', '<img/>', '<p/>');
+        target_div.append('<h2 data-key="title"/>', '<p/ data-key="text">', '<img/ data-key="image">', '<p/ data-key="color">');
     },
 
     displayJsonData : function(specials_json_data) {
-        var structure_array = ['title', 'text', 'image', 'color'];
+        //var structure_array = ['title', 'text', 'image', 'color'];
         var selected_day = day_select_box.val();
         var target_div_children = target_div.children();
         $.each(target_div_children, function(index, value) {
@@ -36,8 +36,8 @@ LoadSpecialContentFromJson.prototype = {
                 $(this).attr('src', specials_json_data[selected_day].image);
             }
             else
-            {
-                $(this).html(specials_json_data[selected_day][structure_array[index]]);
+            {   var key = $(this).data().key;
+                $(this).html(specials_json_data[selected_day][key]);
             }
         })
         
