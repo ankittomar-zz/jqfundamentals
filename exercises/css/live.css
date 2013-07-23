@@ -1,0 +1,13 @@
+#add_new_div{
+  width: auto;
+  float: right
+}
+
+#container{
+  width: auto;
+  float: left
+}
+
+.highlight{
+  background-color:yellow;
+}
