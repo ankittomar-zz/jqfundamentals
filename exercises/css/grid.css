@@ -1,0 +1,16 @@
+.spacing{ 
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-top:20px; 
+  margin-bottom:20px;
+} 
+
+.align_right{
+  width: auto;
+  float: right;
+}
+
+.align_left{
+  width: auto;
+  float: left;
+}
