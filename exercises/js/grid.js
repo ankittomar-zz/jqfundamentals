@@ -26,7 +26,7 @@ ProductGrid.prototype = {
     generateGrid: function(grid_json_data) {
         //console.log('in generateGrid');
         $.each(grid_json_data, function(index, value) {
-            $('body').append('<img data-key="url" class="spacing"></img>');
+            $('#parent').append('<img data-key="url" class="spacing"></img>');
             var element = $('img');
             var json_key = $(element).data().key;
            // console.log(this[json_key]);
@@ -54,12 +54,17 @@ ProductGrid.prototype = {
         class_object.generateFilterList(color);
     },
 
-    generatefilterList: function(element_array) {
-        $.each(element_array, function(index, value) {
-            
+    generateFilterList: function(element_array) {
+        element = $('#parent_left');
+        $.each(element_array, function(index, val) {
+            $(element).append('<input type="checkbox" value=val>'+ val +'</input>' + '</br>');            
         })
-    } 
+        $(element).append('<div class="td_left"/>');
+    },
 
+    bindEvent: function() {
+
+    } 
 }
 
 $(function(){

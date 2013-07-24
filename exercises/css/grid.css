@@ -14,3 +14,9 @@
   width: auto;
   float: left;
 }
+
+.td_left{
+  width: 200px;
+  vertical-align: top;
+  height: 40px;
+}
