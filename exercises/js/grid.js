@@ -1,15 +1,16 @@
 var ProductGrid = function (){
-    this.init();         
+    this.init();     
+    this.class_object;    
 }
 
 ProductGrid.prototype = {
     
     init: function() {
         this.makeAjaxRequest();
+        this.bindEvent();
     },
 
     makeAjaxRequest: function() {
-       // console.log('in makeAjaxRequest');
         class_object = this;
         $.ajax({
             url: "http://dl.dropboxusercontent.com/u/628209/exercises/javascript/product.json",
@@ -24,12 +25,11 @@ ProductGrid.prototype = {
     },
 
     generateGrid: function(grid_json_data) {
-        //console.log('in generateGrid');
         $.each(grid_json_data, function(index, value) {
-            $('#parent').append('<img data-key="url" class="spacing"></img>');
-            var element = $('img');
+            debugger;
+            $('#parent').append('<div><img data-key="url" class="spacing '+this.color.toLowerCase()+' '+this.brand.replace(/\s/,'_').toLowerCase"></img>');
+            var element = $('img.spacing');
             var json_key = $(element).data().key;
-           // console.log(this[json_key]);
             var image_url = "data/product_data/images/" + this[json_key];
             $(element[index]).attr('src', image_url);
         })
@@ -44,29 +44,47 @@ ProductGrid.prototype = {
             if($.inArray(this[brand_key], brand) == -1)
             {
                 brand.push(this[brand_key]);
+
             }
             if($.inArray(this[color_key], color) == -1)
             {
                 color.push(this[color_key]);
             }
         })
-        class_object.generateFilterList(brand);
-        class_object.generateFilterList(color);
+
+        class_object.generateFilterList(brand, brand_key);
+        class_object.generateFilterList(color, color_key);
     },
 
-    generateFilterList: function(element_array) {
+    generateFilterList: function(element_array, key) {
         element = $('#parent_left');
         $.each(element_array, function(index, val) {
-            $(element).append('<input type="checkbox" value=val>'+ val +'</input>' + '</br>');            
+            $(element).append('<input type="checkbox" class="checkbox" value='+val+' data-key='+key+'>'+val+'</input>'+'</br>');            
         })
         $(element).append('<div class="td_left"/>');
+        class_object.bindEvent();
     },
 
     bindEvent: function() {
-        
+        class_object = this;
+        console.log("hiloio =");
+        $('.checkbox').bind('change', function(){
+             
+            class_object.showSelectedItems($(this));
 
-    } 
-}
+        })
+    },
+
+    showSelectedItems: function(element) {
+        
+        element.addClass('checked'); 
+    },
+
+    generateClassList: function(element){
+        $('checked')
+    }
+} 
+
 
 $(function(){
     new ProductGrid();
