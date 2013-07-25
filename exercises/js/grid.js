@@ -63,6 +63,7 @@ ProductGrid.prototype = {
     },
 
     bindEvent: function() {
+        
 
     } 
 }

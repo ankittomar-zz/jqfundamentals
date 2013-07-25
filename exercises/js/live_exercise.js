@@ -26,7 +26,7 @@ AddRemoveDIv.prototype = {
         $('body').delegate('#add_new_div', 'click', function(){
             class_object.add_new_div();
         });
-        $(class_object.parent_container).delegate('div', 'click', function(){
+        $(class_object.parent_container).delegate('div.new', 'click', function(){
             class_object.highlight_delete($(this));
         });
     },
