@@ -126,25 +126,20 @@ ProductGrid.prototype = {
                 search_block = "[data-"+key_value+"='"+$(value).data()[key_value]+"']";
                 arr1.push(search_block);
                 search_block = "";
-                console.log(arr1);     
                 $.each(max_selector_siblings, function(ind, val){
                     var max_selection_sibling_child_box = $(val).children('input');
                     $.each(max_selection_sibling_child_box, function(i,v) {
                         if(v.checked)
-                        {   console.log(v);
-                            $.each(arr1, function(inde, valu) {
+                        {   $.each(arr1, function(inde, valu) {
                                 key_value = $(v).data().key;
                                 data = valu+"[data-"+key_value+"='" + $(v).data()[key_value] + "']";
                                 arr2.push(data)
                                 data = "";
-                                console.log('arr2 temp arr');
-                                console.log(arr2);
                             })  
                         }
                     })
                     if(arr2.length > 0)
                     {   
-                        arr1 = [];
                         arr1 = arr2;
                         arr2 = [];
                     }
@@ -153,7 +148,6 @@ ProductGrid.prototype = {
                 arr1 = [];
             }
         }) 
-        console.log(search_array);
         search_string = search_array.join(',');
         if (search_string)
         {
@@ -164,7 +158,9 @@ ProductGrid.prototype = {
         {
             $('img.spacing').show();
         }
+        console.log(search_string);
     }
+
 } 
 
 $(function(){
