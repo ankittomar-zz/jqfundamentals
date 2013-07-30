@@ -34,12 +34,8 @@ ProductGrid.prototype = {
     },
 
     attributeList: function() {
-        var brand = [];
-        var color = [];
-        var sold_out = [];
-        var brand_key = "brand";
-        var color_key = "color";
-        var sold_out_key = "sold_out";
+        var brand = [], color = [], sold_out = [], 
+            brand_key = "brand", color_key = "color", sold_out_key = "sold_out";
         $.each(grid_json_data, function(index, value) {
             var color_element = '<input type="checkbox" class="checkbox" value="'+this[color_key]+'" data-color='+this[color_key]+' data-key='+color_key+'>'+this[color_key]+'</input>'+'</br>';
             var brand_element = '<input type="checkbox" class="checkbox" value="'+this[brand_key]+'" data-brand="'+this[brand_key]+'" data-key='+brand_key+'>'+this[brand_key]+'</input>'+'</br>';
@@ -85,70 +81,49 @@ ProductGrid.prototype = {
 
     showSelectedItems: function(element) {
         
-        var selector = element.data().key;
-        var filter_div = $('.filter');
+        var selector = element.data().key; filter_div = $('.filter');
         var filter_with_max_selection = class_object.findFilterWithMaxSelection(filter_div);
         class_object.generateSearchString($(filter_with_max_selection));
     },
 
     findFilterWithMaxSelection: function(filter_div) {
-        var filter_with_max_selection = "";
-        var count, max_count =0;
-        $.each(filter_div, function(ind, val) {
-            var children = $(val).children('input');
-            count = 0;
-            $.each(children, function(index, value) {
-                if(value.checked) {
-                    count++;
-                    if (count > max_count) {
-                        max_count = count;
-                        filter_with_max_selection = $(value).parent();
-                    }
-                    else {
-                        //do nothing
-                    }
-                }
-            })
-        })
-        return filter_with_max_selection;    
+        var checked_count_arr = [];
+        return $(filter_div).each(function(i,e){ 
+                checked_count_arr.push($(e).find('input:checked').length) 
+            })[checked_count_arr.indexOf(Math.max.apply(Math,checked_count_arr))]
     },
 
     generateSearchString: function(filter_with_max_selection) {
         var max_selector_siblings = $(filter_with_max_selection).siblings();
-        var max_selection_check_box = $(filter_with_max_selection).children('input');
+        var max_selection_check_box = $(filter_with_max_selection).children('input:checked');
         var search_block,key_value, search_string, data = "";
-        var search_array = [];
-        var  arr1 = [];
-        var arr2 = []; 
+        var search_array = [], arr1 = [], arr2 = []; 
         $.each(max_selection_check_box, function(index, value) {
-            if(value.checked)
-            {   key_value = $(value).data().key;
-                search_block = "[data-"+key_value+"='"+$(value).data()[key_value]+"']";
-                arr1.push(search_block);
-                search_block = "";
-                $.each(max_selector_siblings, function(ind, val){
-                    var max_selection_sibling_child_box = $(val).children('input');
-                    $.each(max_selection_sibling_child_box, function(i,v) {
-                        if(v.checked)
-                        {   $.each(arr1, function(inde, valu) {
-                                key_value = $(v).data().key;
-                                data = valu+"[data-"+key_value+"='" + $(v).data()[key_value] + "']";
-                                arr2.push(data)
-                                data = "";
-                            })  
-                        }
-                    })
-                    if(arr2.length > 0)
-                    {   
-                        arr1 = arr2;
-                        arr2 = [];
-                    }
+            key_value = $(value).data().key;
+            search_block = "[data-"+key_value+"='"+$(value).data()[key_value]+"']";
+            arr1.push(search_block);
+            search_block = "";
+            $.each(max_selector_siblings, function(ind, val){
+                var max_selection_sibling_child_box = $(val).children('input:checked');
+                $.each(max_selection_sibling_child_box, function(i,v) {
+                    $.each(arr1, function(inde, valu) {
+                            key_value = $(v).data().key;
+                            data = valu+"[data-"+key_value+"='" + $(v).data()[key_value] + "']";
+                            arr2.push(data);
+                            data = "";
+                        })  
                 })
-                search_array.push(arr1);
-                arr1 = [];
-            }
+                if(arr2.length > 0)
+                {   
+                    arr1 = arr2;
+                    arr2 = [];
+                }
+            })
+            search_array.push(arr1);
+            arr1 = [];
         }) 
-        search_string = search_array.join(',');
+        search_string = 'img' + search_array.join(',');
+
         if (search_string)
         {
             $('img.spacing').hide();
