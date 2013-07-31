@@ -20,3 +20,15 @@
   vertical-align: top;
   height: auto;
 }
+
+.divborder{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 2px solid;
+  
+}
+
+.heading{
+  text-align: left;
+  font-weight: bold;
+}

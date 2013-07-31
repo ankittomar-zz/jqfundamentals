@@ -64,8 +64,8 @@ ProductGrid.prototype = {
     
 
     generateFilterList: function(element_array, key) {
-        element = $('#parent_left');
-        $(element).append('<div class="td_left filter '+ key+'"/>');
+        element = $('#parent_left').append('<h3>'+key.toUpperCase()+'</h3>');
+        $(element).append('<div class="td_left filter divborder '+ key+'"/>');
         var item_class = '.'+key;
         $.each(element_array, function(index, val) {
             $(item_class).append(val)            
