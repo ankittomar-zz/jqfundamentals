@@ -28,7 +28,7 @@ LoadSpecialContentFromJson.prototype = {
                 $(this).html('');
                 if(this.tagName == 'IMG')
                 {   
-                $(this).removeAttr('src');
+                    $(this).removeAttr('src');
                 }
             }
             
