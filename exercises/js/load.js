@@ -1,4 +1,5 @@
 var LoadExternalContent = function() {
+    this.headline_elements = $('div#blog h3');
     this.init();
 } 
 
@@ -6,42 +7,39 @@ var LoadExternalContent = function() {
 LoadExternalContent.prototype = {
 
     init: function() {
-        headline_elements = $('div#blog h3');
-        this.appendDivAfterEveryBlogHeading();
-        this.bindClick();
+        
+        this.appendDiv();
+        this.bindEvent();
     },
 
-    appendDivAfterEveryBlogHeading: function() {
-        this.appendDivElement($(headline_elements));
-        this.setReferenceInData();
+    appendDiv: function() {
+        $('<div class="child_div"></div>').insertAfter($(this.headline_elements));
+        this.setReference();
     },
 
-    appendDivElement: function(element) {
-        $('<div class="child_div"></div>').insertAfter(element);
-    },
-
-    setReferenceInData: function() {
-        new_div = $('div#blog div');
+    setReference: function() {
+        var new_div = $('div#blog div');
+        var that = this;
         $.each(new_div, function(index,value){
-            $(new_div[index]).data("index", index+1);
-            $(headline_elements[index]).data("reference", new_div[index]);
+            $(this).data("index", index+1);
+            $(that.headline_elements[index]).data("reference", $(this));
         })
     },
 
-    loadContentInTargetDiv: function(element) {
+    loadContent: function(element) {
         
         var heading_sibling = $(element).next('div');
         var heading_sibling_data = heading_sibling.data('index');
-        sr = 'data/blog.html #post' + heading_sibling_data;
-        $(heading_sibling).load(sr);
+        var content = 'data/blog.html #post' + heading_sibling_data;
+        $(heading_sibling).load(content);
     },
 
 
-    bindClick: function() {
-        var class_object = this;
-        headline_elements.bind('click', function(event) {
-        event.preventDefault();
-        class_object.loadContentInTargetDiv($(this));
+    bindEvent: function() {
+        var that = this;
+        this.headline_elements.bind('click', function(event) {
+        that.loadContent($(this));
+        return false;
         });
     }
 }

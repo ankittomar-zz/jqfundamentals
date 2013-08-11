@@ -71,4 +71,3 @@ LoadSpecialContentFromJson.prototype = {
 $(function(){
     new LoadSpecialContentFromJson();
 });
-
