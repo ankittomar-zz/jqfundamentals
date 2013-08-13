@@ -1,4 +1,4 @@
-var ProductGrid = function (){
+var ProductGrid = function() {
     this.init();     
 }
 

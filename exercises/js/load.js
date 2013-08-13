@@ -3,7 +3,6 @@ var LoadExternalContent = function() {
     this.init();
 } 
 
-
 LoadExternalContent.prototype = {
 
     init: function() {
