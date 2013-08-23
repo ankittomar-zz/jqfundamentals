@@ -7,29 +7,22 @@ LoadExternalContent.prototype = {
 
     init: function() {
         
-        this.appendDiv();
+        $('<div></div>').addClass('child_div').insertAfter($(this.headline_elements));
+        this.setReference();
         this.bindEvent();
     },
 
-    appendDiv: function() {
-        $('<div class="child_div"></div>').insertAfter($(this.headline_elements));
-        this.setReference();
-    },
-
     setReference: function() {
-        var new_div = $('div#blog div');
         var that = this;
-        $.each(new_div, function(index,value){
+        $.each($('div#blog div'), function(index,value){
             $(this).data("index", index+1);
             $(that.headline_elements[index]).data("reference", $(this));
         })
     },
 
     loadContent: function(element) {
-        
         var heading_sibling = $(element).next('div');
-        var heading_sibling_data = heading_sibling.data('index');
-        var content = 'data/blog.html #post' + heading_sibling_data;
+        var content = 'data/blog.html #post' + heading_sibling.data('index');
         $(heading_sibling).load(content);
     },
 
